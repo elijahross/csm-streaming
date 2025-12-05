@@ -1,9 +1,11 @@
 FROM python:3.10-slim
 
-# Install system dependencies
+# Install system dependencies including PortAudio
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
+    libportaudio2 \
+    portaudio19-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Set work directory
@@ -12,7 +14,7 @@ WORKDIR /app
 # Copy all files
 COPY . .
 
-# Install Python dependencies
+# Upgrade pip and install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
@@ -26,6 +28,7 @@ RUN python -c "from huggingface_hub import login; import os; t=os.getenv('HF_TOK
 # Install your app
 RUN python setup.py install
 
+# Expose port for FastAPI
 EXPOSE 8000
 
 # Start server
