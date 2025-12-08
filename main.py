@@ -33,6 +33,10 @@ import logging
 from config import ConfigManager
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 import re
+from huggingface_hub import login
+
+hf_token = os.environ.get("HF_TOKEN")
+
 speaking_start_time = 0.0          # set every time the AI begins a new turn
 MIN_BARGE_LATENCY   = 0.9   
 speaker_counters = {

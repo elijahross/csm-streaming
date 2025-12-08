@@ -7,6 +7,10 @@ import torch
 import time
 import shutil
 from pathlib import Path
+from huggingface_hub import hf_hub_download
+from huggingface_hub import login
+
+hf_token = os.environ.get("HF_TOKEN")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -155,11 +159,8 @@ def main():
     """Main setup function"""
     logger.info("Starting AI Companion setup...")
     
-    # Check for CUDA availability
-    check_cuda()
-    
     # Check and install requirements
-    #check_requirements()
+    check_requirements()
     
     # Create directories
     setup_directories()
@@ -170,6 +171,7 @@ def main():
     # Download models
     download_vad_model()
     download_embedding_models()
+
     
     logger.info("Setup completed successfully!")
     logger.info("You can now start the application with:")

@@ -15,10 +15,10 @@ class LLMInterface:
         """
         # VLLM configuration
         self.llm = LLM(
-            model=model_path,
-            tensor_parallel_size=1,  # Adjust based on number of GPUs available
+            model="meta-llama/Llama-3.2-1B",
+            tensor_parallel_size=1,
             gpu_memory_utilization=0.6,
-            max_model_len=max_tokens,
+            max_model_len=8192,
             swap_space=0,
             trust_remote_code=True,
             dtype=torch.float16,

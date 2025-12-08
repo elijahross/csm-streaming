@@ -21,10 +21,6 @@ RUN pip install -r requirements.txt
 # Install flash-attn (ignore failure on CPU machines)
 RUN pip install flash-attn --no-build-isolation || true
 
-# HuggingFace login (use build ARG)
-ARG HF_TOKEN
-RUN python -c "from huggingface_hub import login; import os; t=os.getenv('HF_TOKEN'); print('HF TOKEN PRESENT' if t else 'NO TOKEN'); login(token=t) if t else None"
-
 # Install your app
 RUN python setup.py install
 
